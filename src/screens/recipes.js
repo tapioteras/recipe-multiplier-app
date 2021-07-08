@@ -12,7 +12,7 @@ const RecipesScreen = ({navigation}) => {
     }
     const onSearchSuccess = ({result = []}) => {
         setLoadingState("loaded")
-        setFoundRecipes(result.map(({ Name }) => Name))
+        setFoundRecipes(result)
     }
     const onSearchFail = () => {
         setLoadingState("failure")
@@ -21,9 +21,9 @@ const RecipesScreen = ({navigation}) => {
             <View style={styles.container}>
                 {loadingState !== "initialised" && <Text>{loadingState}</Text>}
                 <TextInput value={search} placeholder="kirjoita reseptin nimi..." onChangeText={text => setSearch(text)} />
-                <Button onPress={() => KFoodApi.fetchRecipe(search, onSearchProgress, onSearchSuccess, onSearchFail)} title="hae reseptejä" />
+                <Button onPress={() => KFoodApi.fetchRecipes(search, onSearchProgress, onSearchSuccess, onSearchFail)} title="hae reseptejä" />
                 {foundRecipes && loadingState === "loaded" && [...foundRecipes]
-                    .map(name => <Text onPress={() => navigation.navigate("Recipe", {name})}>{name}</Text>)}
+                    .map((recipe) => <Text onPress={() => navigation.navigate("Recipe", {recipe})}>{recipe.Name}</Text>)}
             </View>
     );
 }
