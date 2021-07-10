@@ -28,7 +28,7 @@ const RecipesScreen = ({navigation}) => {
     );
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
     container: {
         padding: 50
     },
