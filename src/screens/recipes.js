@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {ActivityIndicator, Button, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
 import KFoodApi from "../api/KFoodApi";
+import SearchResultItem from "../components/SearchResultItem";
 
 const RecipesScreen = ({navigation}) => {
     const [foundRecipes, setFoundRecipes] = useState()
@@ -23,7 +24,7 @@ const RecipesScreen = ({navigation}) => {
                 <Button onPress={() => KFoodApi.fetchRecipes(search, onSearchProgress, onSearchSuccess, onSearchFail)} title="hae reseptejä" />
                 {loadingState === "loading" && <ActivityIndicator />}
                 {foundRecipes && loadingState === "loaded" && [...foundRecipes]
-                    .map((recipe) => <Text onPress={() => navigation.navigate("Recipe", {recipe})}>{recipe.Name}</Text>)}
+                    .map((recipe) => <SearchResultItem onPress={() => navigation.navigate("Recipe", {recipe})}>{recipe.Name}</SearchResultItem>)}
             </ScrollView>
     );
 }
