@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
+import {ActivityIndicator, Button, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
 import KFoodApi from "../api/KFoodApi";
 
 const RecipesScreen = ({navigation}) => {
@@ -18,13 +18,13 @@ const RecipesScreen = ({navigation}) => {
         setLoadingState("failure")
     }
     return (
-            <View style={styles.container}>
-                {loadingState !== "initialised" && <Text>{loadingState}</Text>}
+            <ScrollView style={styles.container}>
                 <TextInput value={search} placeholder="kirjoita reseptin nimi..." onChangeText={text => setSearch(text)} />
                 <Button onPress={() => KFoodApi.fetchRecipes(search, onSearchProgress, onSearchSuccess, onSearchFail)} title="hae reseptejä" />
+                {loadingState === "loading" && <ActivityIndicator />}
                 {foundRecipes && loadingState === "loaded" && [...foundRecipes]
                     .map((recipe) => <Text onPress={() => navigation.navigate("Recipe", {recipe})}>{recipe.Name}</Text>)}
-            </View>
+            </ScrollView>
     );
 }
 
