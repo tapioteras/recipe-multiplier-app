@@ -1,16 +1,14 @@
-import React from "react"
+import React, {useEffect, useState} from "react"
 import {Text, View} from "react-native";
+import {parseKRuokaRecipe} from "../utils/RecipeUtils";
 
-const RecipeScreen = ({route, navigation}) => {
-    const { Name, Url } = route.params.recipe
-
-
-
-    return <View>
-        <Text>{Name}, {Url}</Text>
-    </View>
+const RecipeScreen = ({route}) => {
+    const recipe = parseKRuokaRecipe(route.params.recipe)
+const { name } = recipe
+    return (<View>
+<Text>{name}</Text>
+        <Text>{JSON.stringify(recipe)}</Text>
+    </View>)
 }
-
-
 
 export default RecipeScreen
