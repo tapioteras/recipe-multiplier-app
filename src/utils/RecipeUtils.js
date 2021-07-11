@@ -15,7 +15,7 @@ export const parseKRuokaRecipe = (
         .map(({SubSectionIngredients, SubSectionHeading}) => ({data:SubSectionIngredients.flat(), SubSectionHeading}))
         .map(({data, SubSectionHeading: category}) => ({data: data.map(p => ({...p, category}))}))
         .reduce((a,b) => a.concat(b.data), [])
-        .map(({ Name: name, Amount: amount, Unit: unit }) => ({ name, amount, unit }))
+        .map(({ Name: name, Amount: amount, Unit: unit, category }) => ({ name, amount, unit, category }))
     const {_: portions = 6} = UserPortions
     return {
         name,
