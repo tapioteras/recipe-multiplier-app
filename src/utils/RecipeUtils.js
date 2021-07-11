@@ -25,3 +25,9 @@ export const parseKRuokaRecipe = (
         ingredients
     }
 };
+
+export const divideFraction = (partial) => {
+    if (!partial) return 1
+    const [a,b]= partial.split("/")
+    return a/(!b || b <= 0 ? 1 : b)
+}
