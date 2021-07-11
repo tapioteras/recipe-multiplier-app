@@ -15,7 +15,7 @@ export const parseKRuokaRecipe = (
         .map(({SubSectionIngredients, SubSectionHeading}) => ({data:SubSectionIngredients.flat(), SubSectionHeading}))
         .map(({data, SubSectionHeading: category}) => ({data: data.map(p => ({...p, category}))}))
         .reduce((a,b) => a.concat(b.data), [])
-        .map(({ Name: name, Amount: amount, Unit: unit, category }) => ({ name, amount, unit, category }))
+        .map(({ Name: name, Amount: amount, Unit: unit, category }) => ({ name, amount : fractionStrToDecimal(amount), unit, category }))
     const {_: portions = 6} = UserPortions
     return {
         name,
@@ -27,7 +27,7 @@ export const parseKRuokaRecipe = (
 };
 
 export const fractionStrToDecimal = (str) =>
-    str.split("/").reduce((p, c) => p / c);
+    str ? str.split("/").reduce((p, c) => p / c) : 1
 
 export const round = (value) => Math.round(value * 100) / 100;
 
