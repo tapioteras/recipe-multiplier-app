@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react"
-import {ScrollView, Text, View} from "react-native";
+import {Button, ScrollView, Text, View} from "react-native";
 import {parseKRuokaRecipe} from "../utils/RecipeUtils";
 import {styles} from "./recipes";
 import Header from "../components/Header";
@@ -7,10 +7,15 @@ import BulletItem from "../components/BulletItem";
 
 const RecipeScreen = ({route}) => {
     const recipe = parseKRuokaRecipe(route.params.recipe)
-    const { name, portions, ingredients, steps, categories } = recipe
+    const { name, portions: initialPortions, ingredients, steps, categories } = recipe
+    const [portions, setPortions] = React.useState(initialPortions)
     return (<ScrollView style={styles.container}>
-<Header>{name}</Header>
-        <Text>{portions} annosta</Text>
+        <Header>{name}</Header>
+        <View style={{flexDirection: "row"}}>
+            <Text>{portions} {portions === 1 ? "annos" : "annosta"}</Text>
+            <Button onPress={() => setPortions(portions+1)} title="+" />
+            <Button onPress={() => setPortions(portions < 2 ? portions : portions-1)} title="-" />
+        </View>
         <View style={{ paddingTop: 20 }}>
         <Header>Ainekset</Header>
             {categories.map(({name: categoryName}) => <View>
