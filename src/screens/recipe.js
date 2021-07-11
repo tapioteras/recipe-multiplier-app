@@ -7,15 +7,18 @@ import BulletItem from "../components/BulletItem";
 
 const RecipeScreen = ({route}) => {
     const recipe = parseKRuokaRecipe(route.params.recipe)
-const { name, portions, ingredients, steps } = recipe
+    const { name, portions, ingredients, steps, categories } = recipe
     return (<ScrollView style={styles.container}>
 <Header>{name}</Header>
         <Text>{portions} annosta</Text>
         <View style={{ paddingTop: 20 }}>
         <Header>Ainekset</Header>
-        {[...ingredients]
-            .map(({name, amount, unit}) =>
-                <BulletItem>{amount} {unit} {name}</BulletItem>)}
+            {categories.map(({name: categoryName}) => <View>
+                <Header>{categoryName}</Header>
+                {[...ingredients]
+                    .filter(({category}) => categoryName == category)
+                    .map(({name, amount, unit}) => <BulletItem>{amount} {unit} {name}</BulletItem>)}
+            </View>)}
         </View>
         <View style={{ paddingTop: 20 }}>
             <Header>Valmistus</Header>
