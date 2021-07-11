@@ -26,8 +26,22 @@ export const parseKRuokaRecipe = (
     }
 };
 
-export const divideFraction = (partial) => {
-    if (!partial) return 1
-    const [a,b]= partial.split("/")
-    return a/(!b || b <= 0 ? 1 : b)
-}
+export const fractionStrToDecimal = (str) =>
+    str.split("/").reduce((p, c) => p / c);
+
+export const round = (value) => Math.round(value * 100) / 100;
+
+export const calculatePortion = ({
+                                     amount = 0,
+                                     originalPortion = 1,
+                                     multipliedPortion = 1,
+                                 }) => {
+    const onePortion = amount / originalPortion;
+    if (originalPortion > multipliedPortion) {
+        return round(onePortion * multipliedPortion);
+    } else if (originalPortion < multipliedPortion) {
+        return round(onePortion * multipliedPortion);
+    } else {
+        return amount;
+    }
+};
