@@ -14,7 +14,7 @@ const RecipeScreen = ({route}) => {
         <View style={{ paddingTop: 20 }}>
         <Header>Ainekset</Header>
             {categories.map(({name: categoryName}) => <View>
-                <Header>{categoryName}</Header>
+                <Header level={2}>{categoryName}</Header>
                 {[...ingredients]
                     .filter(({category}) => categoryName == category)
                     .map(({name, amount, unit}) => <BulletItem>{amount} {unit} {name}</BulletItem>)}
