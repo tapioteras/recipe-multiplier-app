@@ -5,7 +5,7 @@
     "ios": "react-native run-ios",
     "web": "expo start --web",
     "start": "react-native start",
-    "prettier": "prettier '*.js' --write"
+    "prettier": "prettier '**/*.js' --write"
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.11",
