@@ -6,9 +6,10 @@ export const parseKRuokaRecipe = (recipeFromKRuoka) => {
     Ingredients,
     Instructions: steps,
   } = recipeFromKRuoka
-  const categories = Ingredients.filter(
-    ({ SubSectionHeading }) => SubSectionHeading !== "_"
-  ).map(({ SubSectionHeading: name }, id) => ({ id, name }))
+  const categories = Ingredients.map(({ SubSectionHeading: name }, id) => ({
+    id,
+    name,
+  }))
   const ingredients = Ingredients.map(
     ({ SubSectionIngredients, SubSectionHeading }) => ({
       data: SubSectionIngredients.flat(),

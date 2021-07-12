@@ -32,26 +32,32 @@ const RecipeScreen = ({ route }) => {
       </View>
       <View style={{ paddingTop: 20 }}>
         <Header>Ainekset</Header>
-        {categories.map(({ name: categoryName }) => (
-          <View>
-            <Header level={2}>{categoryName}</Header>
-            {[...ingredients]
-              .filter(({ category }) => categoryName == category)
-              .map(({ amount, ...rest }) => ({
-                ...rest,
-                amount: calculatePortion({
-                  amount,
-                  originalPortion: initialPortions,
-                  multipliedPortion: portions,
-                }),
-              }))
-              .map(({ name, amount, unit }) => (
-                <BulletItem>
-                  {amount} {unit} {name}
-                </BulletItem>
-              ))}
-          </View>
-        ))}
+        {categories
+          .sort((a, b) => b.name.localeCompare(a.name))
+          .map(({ name: categoryName }) => (
+            <View>
+              {categories.length > 1 && (
+                <Header level={2}>
+                  {categoryName == "_" ? "Muut" : categoryName}
+                </Header>
+              )}
+              {[...ingredients]
+                .filter(({ category }) => categoryName == category)
+                .map(({ amount, ...rest }) => ({
+                  ...rest,
+                  amount: calculatePortion({
+                    amount,
+                    originalPortion: initialPortions,
+                    multipliedPortion: portions,
+                  }),
+                }))
+                .map(({ name, amount, unit }) => (
+                  <BulletItem>
+                    {amount} {unit} {name}
+                  </BulletItem>
+                ))}
+            </View>
+          ))}
       </View>
       <View style={{ paddingTop: 20 }}>
         <Header>Valmistus</Header>
