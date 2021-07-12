@@ -15,7 +15,7 @@ export const parseKRuokaRecipe = (
         .map(({SubSectionIngredients, SubSectionHeading}) => ({data:SubSectionIngredients.flat(), SubSectionHeading}))
         .map(({data, SubSectionHeading: category}) => ({data: data.map(p => ({...p, category}))}))
         .reduce((a,b) => a.concat(b.data), [])
-        .map(({ Name: name, Amount: amount, Unit: unit, category }) => ({ name, amount : fractionStrToDecimal(amount), unit, category }))
+        .map(({ Name: name, Amount: amount, Unit: unit, category }) => ({ name, amount : convertAmount(amount), unit, category }))
     const {_: portions = 6} = UserPortions
     return {
         name,
@@ -26,7 +26,7 @@ export const parseKRuokaRecipe = (
     }
 };
 
-export const fractionStrToDecimal = (str) =>
+export const fractionStrToDecimal = (str = "") =>
     str ? str.split("/").reduce((p, c) => p / c) : 1
 
 export const round = (value) => Math.round(value * 100) / 100;
@@ -44,4 +44,41 @@ export const calculatePortion = ({
     } else {
         return amount;
     }
+};
+
+export const convertAmount = (amount = "") => {
+    let newAmount = amount;
+    
+    if (newAmount.includes("n.")) {
+        newAmount = newAmount.replace("n.", "").trim();
+    }
+    
+    if (newAmount.includes("/")) {
+        
+        if (newAmount.includes(" ")) {
+            newAmount = newAmount
+                .split(" ")
+                
+                .map((p) => (p.includes("/") ? fractionStrToDecimal(p.trim()) : p))
+                .filter((p) => !isNaN(p))
+                .reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
+        } else {
+            newAmount = fractionStrToDecimal(newAmount);
+        }
+        
+    } else if (newAmount.includes("-")) {
+        newAmount = newAmount.split("-")[0];
+    } else if (newAmount.includes(",")) {
+        newAmount = newAmount.replace(",", ".");
+    }
+
+    
+    if (isNaN(newAmount) || !newAmount.toString().length) {
+        newAmount = "";
+    } else {
+        
+        newAmount = parseFloat(newAmount);
+    }
+
+    return newAmount;
 };
