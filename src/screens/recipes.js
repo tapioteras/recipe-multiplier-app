@@ -24,7 +24,7 @@ const RecipesScreen = ({navigation}) => {
                 <Button onPress={() => KFoodApi.fetchRecipes(search, onSearchProgress, onSearchSuccess, onSearchFail)} title="hae reseptejä" />
                 {loadingState === "loading" && <ActivityIndicator />}
                 {foundRecipes && loadingState === "loaded" && [...foundRecipes]
-                    .map((recipe) => <SearchResultItem onPress={() => navigation.navigate("Recipe", {recipe})}>{recipe.Name}</SearchResultItem>)}
+                    .map((recipe) => <SearchResultItem key={`recipe-row-${recipe.Name}`} onPress={() => navigation.navigate("Recipe", {recipe})}>{recipe.Name}</SearchResultItem>)}
             </ScrollView>
     );
 }
