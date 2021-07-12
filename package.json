@@ -4,7 +4,8 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "web": "expo start --web",
-    "start": "react-native start"
+    "start": "react-native start",
+    "prettier": "prettier '*.js' --write"
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.11",
@@ -29,7 +30,8 @@
     "@babel/core": "^7.14.6",
     "@babel/preset-env": "^7.14.7",
     "babel-jest": "^27.0.6",
-    "jest-expo": "^42.0.1"
+    "jest-expo": "^42.0.1",
+    "prettier": "^2.3.2"
   },
   "private": true,
   "jest": {
@@ -40,5 +42,10 @@
     "transformIgnorePatterns": [
       "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|@sentry/.*)"
     ]
+  },
+  "prettier": {
+    "jsxBracketSameLine": true,
+    "semi": false,
+    "singleQuote": false
   }
 }
