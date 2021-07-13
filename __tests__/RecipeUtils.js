@@ -1,19 +1,191 @@
 import "react-native"
 import React from "react"
 
-// Note: test renderer must be required after react-native.
-import renderer from "react-test-renderer"
 import { parseKRuokaRecipe } from "../src/utils/RecipeUtils"
 
 it("converts recipes with multiple categories correctly", () =>
+  expect(parseKRuokaRecipe(testData_singleCategory)).toEqual({
+    categories: [
+      {
+        id: 0,
+        name: "_",
+      },
+    ],
+    ingredients: [
+      {
+        amount: 4,
+        category: "_",
+        name: "roseeviinimäistä juomaa (0% tai 5,5 %)",
+        unit: "dl",
+      },
+      {
+        amount: 2,
+        category: "_",
+        name: "Pirkka Parhaat Russian virvoitusjuomaa",
+        unit: "dl",
+      },
+      {
+        amount: 2,
+        category: "_",
+        name: "Pirkka karpalomehua",
+        unit: "dl",
+      },
+      {
+        amount: "",
+        category: "_",
+        name: "jäitä",
+      },
+      {
+        amount: 2,
+        category: "_",
+        name: "tuoreita vadelmia",
+        unit: "dl",
+      },
+      {
+        amount: 0.5,
+        category: "_",
+        name: "Pirkka Parhaat suomalaisia vadelmia (pakaste)",
+        unit: "rs",
+      },
+      {
+        amount: 0.5,
+        category: "_",
+        name: "limettiä viipaleina",
+        unit: "",
+      },
+      {
+        amount: "",
+        category: "_",
+        name: "tuoretta minttua",
+      },
+    ],
+    name: "Roseesangria",
+    portions: 6,
+    steps: [
+      "Kaada juomat jäiden kanssa isoon kannuun. Lisää hieman murskatut vadelmat ja limettiviipaleet. Viimeistele juoma tuoreella mintulla ja tarjoa heti.",
+    ],
+  }))
+
+it("converts recipes with multiple categories correctly", () =>
   expect(parseKRuokaRecipe(testData_multipleCategories)).toEqual({
+    categories: [
+      {
+        id: 0,
+        name: "_",
+      },
+      {
+        id: 1,
+        name: "Piparjuurimajoneesi",
+      },
+      {
+        id: 2,
+        name: "Pikkelöity punasipuli",
+      },
+      {
+        id: 3,
+        name: "Koristeluun",
+      },
+    ],
+    ingredients: [
+      {
+        amount: 16,
+        category: "_",
+        name: "varhaisperunaa",
+        unit: "",
+      },
+      {
+        amount: 2,
+        category: "_",
+        name: "suolaa",
+        unit: "tl",
+      },
+      {
+        amount: 1,
+        category: "_",
+        name: "rypsiöljyä",
+        unit: "rkl",
+      },
+      {
+        amount: "",
+        category: "_",
+        name: "mustapippuria myllystä",
+        unit: "ripaus",
+      },
+      {
+        amount: 1,
+        category: "_",
+        name: "ruohosipulia",
+        unit: "ruukku",
+      },
+      {
+        amount: 0.5,
+        category: "_",
+        name: "tilliä",
+        unit: "ruukkua",
+      },
+      {
+        amount: 160,
+        category: "_",
+        name: "maustesilliä",
+        unit: "g",
+      },
+      {
+        amount: 2,
+        category: "_",
+        name: "kananmunaa",
+        unit: "",
+      },
+      {
+        amount: 100,
+        category: "Piparjuurimajoneesi",
+        name: "majoneesia",
+        unit: "g",
+      },
+      {
+        amount: 1,
+        category: "Piparjuurimajoneesi",
+        name: "piparjuuritahnaa (esim. Felix)",
+        unit: "tl",
+      },
+      {
+        amount: 1,
+        category: "Pikkelöity punasipuli",
+        name: "punasipuli",
+        unit: "",
+      },
+      {
+        amount: 0.75,
+        category: "Pikkelöity punasipuli",
+        name: "vettä",
+        unit: "dl",
+      },
+      {
+        amount: 0.5,
+        category: "Pikkelöity punasipuli",
+        name: "sokeria",
+        unit: "dl",
+      },
+      {
+        amount: 0.25,
+        category: "Pikkelöity punasipuli",
+        name: "väkiviinaetikkaa",
+        unit: "dl",
+      },
+      {
+        amount: 0.5,
+        category: "Koristeluun",
+        name: "tilliä",
+        unit: "ruukkua",
+      },
+      {
+        amount: 4,
+        category: "Koristeluun",
+        name: "retiisiä",
+        unit: "",
+      },
+    ],
     name: "Grillatut uudet perunat, kananmunaa ja maustesilliä",
     portions: 6,
-    categories: [
-      { id: 0, name: "Piparjuurimajoneesi" },
-      { id: 1, name: "Pikkelöity punasipuli" },
-      { id: 2, name: "Koristeluun" },
-    ],
     steps: [
       "Laita vesi, sokeri ja etikka kattilaan. Kiehauta ja anna pikkeliliemen jäähtyä.\r\n",
       "Leikkaa sipuli ohuiksi renkaiksi. Kaada pikkeliliemi sipuleiden päälle ja anna maustua 2 tuntia\r\n",
@@ -21,64 +193,6 @@ it("converts recipes with multiple categories correctly", () =>
       "Pese perunat huolellisesti. Keitä perunoita 10 minuuttia. Valuta ja anna jäähtyä hetki. Leikkaa perunat puoliksi ja grillaa noin 10 minuuttia, kunnes ne ovat kypsiä. Mausta suolalla, mustapippurilla, hienonnetulla tillillä ja ruohosipulilla sekä rypsiöljyllä.\r\n",
       "Leikkaa sillit 1 cm paksuiksi viipaleiksi. Keitä kananmunia 9 minuuttia, jäähdytä, kuori ja murskaa. Leikkaa retiisit ohuiksi viipaleiksi.\r\n",
       "Aseta perunat ja sillit kulhoon, pursota majoneesia, lisää murskattu kananmuna ja pikkelöidyt punasipulit. Koristele tillillä ja raasta tuoretta piparjuurta päälle.",
-    ],
-    ingredients: [
-      { name: "varhaisperunaa", amount: 16, unit: "", category: "_" },
-      { name: "suolaa", amount: 2, unit: "tl", category: "_" },
-      { name: "rypsiöljyä", amount: 1, unit: "rkl", category: "_" },
-      {
-        name: "mustapippuria myllystä",
-        amount: "",
-        unit: "ripaus",
-        category: "_",
-      },
-      { name: "ruohosipulia", amount: 1, unit: "ruukku", category: "_" },
-      { name: "tilliä", amount: 0.5, unit: "ruukkua", category: "_" },
-      { name: "maustesilliä", amount: 160, unit: "g", category: "_" },
-      { name: "kananmunaa", amount: 2, unit: "", category: "_" },
-      {
-        name: "majoneesia",
-        amount: 100,
-        unit: "g",
-        category: "Piparjuurimajoneesi",
-      },
-      {
-        name: "piparjuuritahnaa (esim. Felix)",
-        amount: 1,
-        unit: "tl",
-        category: "Piparjuurimajoneesi",
-      },
-      {
-        name: "punasipuli",
-        amount: 1,
-        unit: "",
-        category: "Pikkelöity punasipuli",
-      },
-      {
-        name: "vettä",
-        amount: 0.75,
-        unit: "dl",
-        category: "Pikkelöity punasipuli",
-      },
-      {
-        name: "sokeria",
-        amount: 0.5,
-        unit: "dl",
-        category: "Pikkelöity punasipuli",
-      },
-      {
-        name: "väkiviinaetikkaa",
-        amount: 0.25,
-        unit: "dl",
-        category: "Pikkelöity punasipuli",
-      },
-      {
-        name: "tilliä",
-        amount: 0.5,
-        unit: "ruukkua",
-        category: "Koristeluun",
-      },
-      { name: "retiisiä", amount: 4, unit: "", category: "Koristeluun" },
     ],
   }))
 
@@ -502,6 +616,322 @@ const testData_multipleCategories = {
     },
     averages: {
       main: 3.45455,
+      hilarity: 0,
+      usefulness: 0,
+    },
+  },
+}
+
+const testData_singleCategory = {
+  Id: "11613",
+  Name: "Roseesangria",
+  PieceSize: {
+    Unit: "ml",
+    Amount: "200",
+  },
+  Portions: {
+    Unit: "annosta",
+    Amount: "4",
+  },
+  PreparationTime: {
+    Description: "alle 15 min",
+    TimeRange: {
+      MinTime: 5,
+      MaxTime: 15,
+    },
+  },
+  UserPortions: {
+    $: {
+      Unit: "henkilölle",
+    },
+  },
+  Categories: [
+    {
+      MainName: "Sesonki",
+      MainId: "1",
+      SubName: "Grillaus",
+      SubId: "5",
+    },
+    {
+      MainName: "Juomat",
+      MainId: "9",
+      SubName: "Kylmät juomat ja boolit",
+      SubId: "59",
+    },
+    {
+      MainName: "Sesonki",
+      MainId: "1",
+      SubName: "Kesä",
+      SubId: "121",
+    },
+    {
+      MainName: "Apukategoriat",
+      MainId: "18",
+      SubName: "Trendikäs ",
+      SubId: "156",
+    },
+    {
+      MainName: "Teema",
+      MainId: "15",
+      SubName: "Viikonloppu",
+      SubId: "160",
+    },
+    {
+      MainName: "Teema",
+      MainId: "15",
+      SubName: "Juhlat",
+      SubId: "164",
+    },
+    {
+      MainName: "Sesonki",
+      MainId: "1",
+      SubName: "Juhannus",
+      SubId: "122",
+    },
+    {
+      MainName: "Teema",
+      MainId: "15",
+      SubName: "Brunssi",
+      SubId: "131",
+    },
+    {
+      MainName: "Teema",
+      MainId: "15",
+      SubName: "Piknik",
+      SubId: "132",
+    },
+    {
+      MainName: "Asiakassegmentointi (K-asiakkaat)",
+      MainId: "17",
+      SubName: "Nautiskelijat",
+      SubId: "146",
+    },
+    {
+      MainName: "Asiakassegmentointi (K-asiakkaat)",
+      MainId: "17",
+      SubName: "Innostujat",
+      SubId: "147",
+    },
+    {
+      MainName: "Apukategoriat",
+      MainId: "18",
+      SubName: "Helppo",
+      SubId: "153",
+    },
+  ],
+  Pictures: ["Roseesangria_KR8_21"],
+  PictureUrls: [
+    {
+      Id: "Roseesangria_KR8_21",
+      Normal:
+        "https://public.keskofiles.com/f/recipe/Roseesangria_KR8_21?w=1000&h=1000&fit=clip",
+      Original: "https://public.keskofiles.com/f/recipe/Roseesangria_KR8_21",
+    },
+  ],
+  SpecialDiets: [
+    {
+      Id: "2",
+      Name: "Laktoositon",
+    },
+    {
+      Id: "3",
+      Name: "Maidoton",
+    },
+    {
+      Id: "4",
+      Name: "Gluteeniton",
+    },
+    {
+      Id: "6",
+      Name: "Kasvis (lakto-ovo)",
+    },
+    {
+      Id: "7",
+      Name: "Kananmunaton",
+    },
+  ],
+  Ingredients: [
+    {
+      SubSectionHeading: "_",
+      SubSectionIngredients: [
+        [
+          {
+            Name: "roseeviinimäistä juomaa (0% tai 5,5 %)",
+            Amount: "4",
+            PackageRecipe: "false",
+            IngredientType: "17044",
+            Unit: "dl",
+            IngredientTypeName: "Roseeviinimäinen juoma, 5,5 %",
+          },
+        ],
+        [
+          {
+            Name: "Pirkka Parhaat Russian virvoitusjuomaa",
+            Ean: "6410405164575",
+            Amount: "2",
+            PackageRecipe: "false",
+            IngredientType: "11465",
+            Unit: "dl",
+            IngredientTypeName: "Mikseri, russian",
+          },
+        ],
+        [
+          {
+            Name: "Pirkka karpalomehua",
+            Ean: "6410405107442",
+            Amount: "2",
+            PackageRecipe: "false",
+            IngredientType: "5721",
+            Unit: "dl",
+            IngredientTypeName: "Mehu, karpalo",
+          },
+        ],
+        [
+          {
+            Name: "jäitä",
+            PackageRecipe: "false",
+            IngredientType: "5607",
+            IngredientTypeName: "Jääpalapussi",
+          },
+        ],
+        [
+          {
+            Name: "tuoreita vadelmia",
+            Amount: "2",
+            PackageRecipe: "false",
+            IngredientType: "7239",
+            Unit: "dl",
+            IngredientTypeName: "Vadelma, tuore",
+          },
+          {
+            Name: "Pirkka Parhaat suomalaisia vadelmia (pakaste)",
+            Ean: "6410405181091",
+            Amount: "1/2",
+            AmountInfo: "(à 175 g)",
+            PackageRecipe: "false",
+            IngredientType: "7237",
+            Unit: "rs",
+            IngredientTypeName: "Vadelma, pakaste",
+          },
+        ],
+        [
+          {
+            Name: "limettiä viipaleina",
+            Amount: "1/2",
+            PackageRecipe: "false",
+            IngredientType: "5997",
+            Unit: "",
+            IngredientTypeName: "Limetti",
+          },
+        ],
+        [
+          {
+            Name: "tuoretta minttua",
+            PackageRecipe: "false",
+            IngredientType: "15789",
+            IngredientTypeName: "Minttu",
+          },
+        ],
+      ],
+    },
+  ],
+  Instructions:
+    "# Kaada juomat jäiden kanssa isoon kannuun. Lisää hieman murskatut vadelmat ja limettiviipaleet. Viimeistele juoma tuoreella mintulla ja tarjoa heti.",
+  EndNote:
+    "Valitse juomaan hieman makea roseeviinimäinen juoma. Jos juoma on hyvin kuivaa, lisää ripaus sokeria. *Annoshinnat on laskettu K-citymarket-ketjun hintatason mukaan 8/2021. Tuoretuotteiden hinnat vaihtelevat sesongeittain.",
+  Description:
+    "Raikas roseesangria syntyy helposti alkoholittomana tai mietona versiona ruokakaupan juomista. Viimeistele kauniin värinen kesäjuoma vadelmilla, limellä ja mintulla. Noin 1,05€/annos.",
+  DateCreated: "2021-04-19T08:46:05",
+  DateModified: "2021-06-23T13:12:43",
+  Stamp: {
+    Name: "Testattu K-koekeittiössä",
+    Id: "1",
+  },
+  RecipeUse: {
+    Name: "k-ruoka.fi",
+    Id: "1",
+  },
+  resourceType: "recipe",
+  Url: "https://www.k-ruoka.fi/reseptit/roseesangria",
+  UrlSlug: "roseesangria",
+  Sort: [1, 1, 11613],
+  MainCategory: {
+    MainName: "Juomat",
+    MainId: "9",
+    SubName: "Kylmät juomat ja boolit",
+    SubId: "59",
+  },
+  AvailableFilters: {
+    sesonki: [
+      {
+        type: "sesonki",
+        value: "grillikausi",
+      },
+      {
+        type: "sesonki",
+        value: "juhannus",
+      },
+    ],
+    erityisruokavalio: [
+      {
+        type: "erityisruokavalio",
+        value: "laktoositon",
+      },
+      {
+        type: "erityisruokavalio",
+        value: "maidoton",
+      },
+      {
+        type: "erityisruokavalio",
+        value: "gluteeniton",
+      },
+      {
+        type: "erityisruokavalio",
+        value: "kasvis",
+      },
+      {
+        type: "erityisruokavalio",
+        value: "kananmunaton",
+      },
+    ],
+  },
+  Rating: {
+    targetId: "11613",
+    targetNamespace: "recipe",
+    average: 5,
+    commentCount: 0,
+    distributions: {
+      main: {
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0,
+        5: 1,
+      },
+      hilarity: {
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0,
+        5: 0,
+      },
+      usefulness: {
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0,
+        5: 0,
+      },
+    },
+    distribution: {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 1,
+    },
+    averages: {
+      main: 5,
       hilarity: 0,
       usefulness: 0,
     },
