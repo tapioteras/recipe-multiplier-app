@@ -9,7 +9,7 @@ const RecipeButton = ({ title, onPress }) => (
 
 export default RecipeButton
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   button: {
     alignItems: "center",
     justifyContent: "center",
