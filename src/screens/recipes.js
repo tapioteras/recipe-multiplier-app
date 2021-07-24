@@ -1,10 +1,8 @@
 import React, { useState } from "react"
 import {
   ActivityIndicator,
-  Button,
   ScrollView,
   StyleSheet,
-  Text,
   TextInput,
   View,
 } from "react-native"
@@ -34,6 +32,7 @@ const RecipesScreen = ({ navigation }) => {
         placeholder="kirjoita reseptin nimi..."
         onChangeText={(text) => setSearch(text)}
       />
+      <View style={{ height: 10 }} />
       <RecipeButton
         onPress={() =>
           KFoodApi.fetchRecipes(
@@ -46,15 +45,18 @@ const RecipesScreen = ({ navigation }) => {
         title="hae reseptejä"
       />
       {loadingState === "loading" && <ActivityIndicator />}
-      {foundRecipes &&
-        loadingState === "loaded" &&
-        [...foundRecipes].map((recipe) => (
-          <SearchResultItem
-            key={`recipe-row-${recipe.Name}`}
-            onPress={() => navigation.navigate("Recipe", { recipe })}>
-            {recipe.Name}
-          </SearchResultItem>
-        ))}
+      {foundRecipes && loadingState === "loaded" && (
+        <>
+          <View style={{ height: 20 }} />
+          {[...foundRecipes].map((recipe) => (
+            <SearchResultItem
+              key={`recipe-row-${recipe.Name}`}
+              onPress={() => navigation.navigate("Recipe", { recipe })}>
+              {recipe.Name}
+            </SearchResultItem>
+          ))}
+        </>
+      )}
     </ScrollView>
   )
 }
