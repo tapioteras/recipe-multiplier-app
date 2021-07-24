@@ -65,6 +65,7 @@ const RecipesScreen = ({ navigation }) => {
           ))}
         </>
       )}
+      <View style={{ height: 100 }} />
     </ScrollView>
   )
 }
