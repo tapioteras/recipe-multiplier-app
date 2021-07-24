@@ -53,7 +53,7 @@ const RecipeScreen = ({ route }) => {
                 }))
                 .map(({ name, amount, unit }, i) => (
                   <BulletItem key={`ingredient-${i}`}>
-                    {amount}
+                    {amount && ` ${amount}`}
                     {unit && ` ${unit}`}
                     {name && ` ${name}`}
                   </BulletItem>
