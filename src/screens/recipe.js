@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react"
-import { Button, ScrollView, Text, View } from "react-native"
+import React from "react"
+import { ScrollView, Text, View, Pressable } from "react-native"
 import { calculatePortion, parseKRuokaRecipe } from "../utils/RecipeUtils"
 import { styles } from "./recipes"
 import Header from "../components/Header"
 import BulletItem from "../components/BulletItem"
 import Section from "../components/Section"
 import SubSection from "../components/SubSection"
+import RecipeButton from "../components/RecipeButton"
 
 const RecipeScreen = ({ route }) => {
   const recipe = parseKRuokaRecipe(route.params.recipe)
@@ -20,19 +21,38 @@ const RecipeScreen = ({ route }) => {
   return (
     <ScrollView style={styles.container}>
       <Header>{name}</Header>
-      <View style={{ flexDirection: "row" }}>
+      <View>
         <Text>
           {portions} {portions === 1 ? "annos" : "annosta"}
         </Text>
-        <Button onPress={() => setPortions(portions + 1)} title="+" />
-        <Button
-          onPress={() => setPortions(portions < 2 ? portions : portions - 1)}
-          title="-"
-        />
-        <Button onPress={() => setPortions(initialPortions * 2)} title="x2" />
-        <Button onPress={() => setPortions(initialPortions)} title="reset" />
+        <View
+          style={{
+            flexDirection: "row",
+            paddingVertical: 10,
+            alignContent: "space-around",
+          }}>
+          <RecipeButton onPress={() => setPortions(portions + 1)} title="+" />
+          <RecipeButton
+            onPress={() => setPortions(portions < 2 ? portions : portions - 1)}
+            title="-"
+          />
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            paddingVertical: 10,
+            alignContent: "space-around",
+          }}>
+          <RecipeButton
+            onPress={() => setPortions(initialPortions * 2)}
+            title="x2"
+          />
+          <RecipeButton
+            onPress={() => setPortions(initialPortions)}
+            title="reset"
+          />
+        </View>
       </View>
-
       <Section header="Ainekset">
         {categories
           .sort((a, b) => b.name.localeCompare(a.name))
