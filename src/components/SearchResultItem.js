@@ -1,8 +1,9 @@
 import React from "react"
-import { Text, View } from "react-native"
+import { Text, TouchableOpacity, View } from "react-native"
 
-const SearchResultItem = (props) => (
-  <View
+const SearchResultItem = ({ onPress, ...props }) => (
+  <TouchableOpacity
+    {...{ onPress }}
     style={{
       flex: 1,
       flexDirection: "row",
@@ -16,7 +17,7 @@ const SearchResultItem = (props) => (
     <View style={{ flex: 1, alignItems: "flex-end" }}>
       <Text style={{ fontSize: 30 }}>{">"}</Text>
     </View>
-  </View>
+  </TouchableOpacity>
 )
 
 export default SearchResultItem
