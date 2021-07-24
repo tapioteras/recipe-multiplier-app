@@ -4,6 +4,8 @@ import { calculatePortion, parseKRuokaRecipe } from "../utils/RecipeUtils"
 import { styles } from "./recipes"
 import Header from "../components/Header"
 import BulletItem from "../components/BulletItem"
+import Section from "../components/Section"
+import SubSection from "../components/SubSection"
 
 const RecipeScreen = ({ route }) => {
   const recipe = parseKRuokaRecipe(route.params.recipe)
@@ -30,17 +32,18 @@ const RecipeScreen = ({ route }) => {
         <Button onPress={() => setPortions(initialPortions * 2)} title="x2" />
         <Button onPress={() => setPortions(initialPortions)} title="reset" />
       </View>
-      <View style={{ paddingTop: 20 }}>
-        <Header>Ainekset</Header>
+
+      <Section header="Ainekset">
         {categories
           .sort((a, b) => b.name.localeCompare(a.name))
           .map(({ name: categoryName }, i) => (
-            <View key={`category-${i}`}>
-              {categories.length > 1 && (
-                <Header level={2}>
-                  {categoryName == "_" ? "Muut" : categoryName}
-                </Header>
-              )}
+            <SubSection
+              header={
+                categories.length > 1 && categoryName == "_"
+                  ? "Muut"
+                  : categoryName
+              }
+              key={`category-${i}`}>
               {[...ingredients]
                 .filter(({ category }) => categoryName == category)
                 .map(({ amount, ...rest }) => ({
@@ -58,17 +61,16 @@ const RecipeScreen = ({ route }) => {
                     {name && ` ${name}`}
                   </BulletItem>
                 ))}
-            </View>
+            </SubSection>
           ))}
-      </View>
-      <View style={{ paddingTop: 20, paddingBottom: 100 }}>
-        <Header>Valmistus</Header>
+      </Section>
+      <Section header="Valmistus" paddingBottom={0}>
         {[...steps].map((step, i) => (
           <BulletItem key={`step-${i}`} symbol={`${i + 1}.`} paddingTop={8}>
             {step}
           </BulletItem>
         ))}
-      </View>
+      </Section>
     </ScrollView>
   )
 }
