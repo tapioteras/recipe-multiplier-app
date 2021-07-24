@@ -9,9 +9,9 @@ const style = StyleSheet.create({
   paddingLeft: 5,
 })
 
-const BulletItem = ({ children }) => (
+const BulletItem = ({ children, symbol = "\u2022" }) => (
   <View style={{ flexDirection: "row" }}>
-    <Text {...{ bulletStyle }}>{"\u2022"}</Text>
+    <Text {...{ bulletStyle }}>{symbol}</Text>
     <Text {...{ style }}>{children}</Text>
   </View>
 )
