@@ -91,6 +91,7 @@ const RecipeScreen = ({ route }) => {
           </BulletItem>
         ))}
       </Section>
+      <View style={{ height: 100 }}></View>
     </ScrollView>
   )
 }
