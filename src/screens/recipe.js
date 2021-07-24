@@ -34,8 +34,8 @@ const RecipeScreen = ({ route }) => {
         <Header>Ainekset</Header>
         {categories
           .sort((a, b) => b.name.localeCompare(a.name))
-          .map(({ name: categoryName }) => (
-            <View>
+          .map(({ name: categoryName }, i) => (
+            <View key={`category-${i}`}>
               {categories.length > 1 && (
                 <Header level={2}>
                   {categoryName == "_" ? "Muut" : categoryName}
@@ -51,8 +51,8 @@ const RecipeScreen = ({ route }) => {
                     multipliedPortion: portions,
                   }),
                 }))
-                .map(({ name, amount, unit }) => (
-                  <BulletItem>
+                .map(({ name, amount, unit }, i) => (
+                  <BulletItem key={`ingredient-${i}`}>
                     {amount} {unit} {name}
                   </BulletItem>
                 ))}
@@ -61,13 +61,11 @@ const RecipeScreen = ({ route }) => {
       </View>
       <View style={{ paddingTop: 20 }}>
         <Header>Valmistus</Header>
-        {[
-          ...steps.map((step, i) => (
-            <BulletItem>
-              {i + 1}. {step}
-            </BulletItem>
-          )),
-        ]}
+        {[...steps].map((step, i) => (
+          <BulletItem key={`step-${i}`}>
+            {i + 1}. {step}
+          </BulletItem>
+        ))}
       </View>
     </ScrollView>
   )
