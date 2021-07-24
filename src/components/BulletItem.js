@@ -1,18 +1,20 @@
 import React from "react"
-import { View, StyleSheet, Text } from "react-native"
+import { View, Text } from "react-native"
 
-const bulletStyle = StyleSheet.create({})
-const style = StyleSheet.create({
-  fontSize: 18,
-  lineHeight: 30,
-  flex: 1,
-  paddingLeft: 5,
-})
-
-const BulletItem = ({ children, symbol = "\u2022" }) => (
+const BulletItem = ({ children, symbol = "\u2022", paddingTop = 5 }) => (
   <View style={{ flexDirection: "row" }}>
-    <Text {...{ bulletStyle }}>{symbol}</Text>
-    <Text {...{ style }}>{children}</Text>
+    <View style={{ paddingTop }}>
+      <Text style={{ fontSize: 17 }}>{symbol}</Text>
+    </View>
+    <Text
+      style={{
+        fontSize: 18,
+        lineHeight: 35,
+        flex: 1,
+        paddingLeft: 7,
+      }}>
+      {children}
+    </Text>
   </View>
 )
 
