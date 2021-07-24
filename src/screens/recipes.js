@@ -10,6 +10,7 @@ import {
 } from "react-native"
 import KFoodApi from "../api/KFoodApi"
 import SearchResultItem from "../components/SearchResultItem"
+import RecipeButton from "../components/RecipeButton"
 
 const RecipesScreen = ({ navigation }) => {
   const [foundRecipes, setFoundRecipes] = useState()
@@ -33,7 +34,7 @@ const RecipesScreen = ({ navigation }) => {
         placeholder="kirjoita reseptin nimi..."
         onChangeText={(text) => setSearch(text)}
       />
-      <Button
+      <RecipeButton
         onPress={() =>
           KFoodApi.fetchRecipes(
             search,
