@@ -64,7 +64,7 @@ const RecipeScreen = ({ route }) => {
       <View style={{ paddingTop: 20 }}>
         <Header>Valmistus</Header>
         {[...steps].map((step, i) => (
-          <BulletItem key={`step-${i}`} symbol={`${i + 1}.`}>
+          <BulletItem key={`step-${i}`} symbol={`${i + 1}.`} paddingTop={8}>
             {step}
           </BulletItem>
         ))}
