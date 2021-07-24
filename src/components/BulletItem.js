@@ -10,7 +10,6 @@ const BulletItem = ({ children, symbol = "\u2022", paddingTop = 5 }) => (
       style={{
         fontSize: 18,
         lineHeight: 35,
-        flex: 1,
         paddingLeft: 7,
       }}>
       {children}
