@@ -27,11 +27,19 @@ const RecipesScreen = ({ navigation }) => {
   }
   return (
     <ScrollView style={styles.container}>
-      <TextInput
-        value={search}
-        placeholder="kirjoita reseptin nimi..."
-        onChangeText={(text) => setSearch(text)}
-      />
+      <View style={{ flexDirection: "row" }}>
+        <TextInput
+          style={{ flex: 1 }}
+          value={search}
+          placeholder="kirjoita reseptin nimi..."
+          onChangeText={(text) => setSearch(text)}
+        />
+        {search.length > 0 && (
+          <View style={{}}>
+            <RecipeButton onPress={() => setSearch("")} title={"x"} />
+          </View>
+        )}
+      </View>
       <View style={{ height: 10 }} />
       <RecipeButton
         onPress={() =>
